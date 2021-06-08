@@ -1,0 +1,19 @@
+type User {
+    id: ID!,
+    login:String,
+    name: String,
+    repos: [RepositoryUser]
+}
+
+type RepositoryUser {
+    name_rep: String
+}
+
+type Query {
+    users(count: Int!):[User]
+    user(id:ID!):User
+    userByLogin(login: String!):User
+}
+type Mutation {
+    createUserFromGithub(login: String!):User
+}
