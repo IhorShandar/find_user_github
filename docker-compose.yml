@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  database:
+    image: mysql:8.0.23
+    container_name: localhost
+    environment:
+      MYSQL_ROOT_PASSWORD: 1111
+      MYSQL_DATABASE: test_github
+      MYSQL_PASSWORD: 1111
+    restart: on-failure:10
+  jdk:
+    build: .
+    container_name: app_jdk
+    ports:
+      - '8089:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/test_github?createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
+      SPRING_DATASOURCE_PASSWORD: 1111
+    restart: on-failure:10
+

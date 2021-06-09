@@ -1,0 +1,35 @@
+mutation{
+  createUserFromGithub(login:"dhh"){
+    name,
+    repos{
+      name_rep
+    }
+  }
+}
+
+mutation{
+  createUserFromGithub(login:"IhorShandar"){
+    name,
+    repos{
+      name_rep
+    }
+  }
+}
+
+query{
+    userByLogin(login: "IhorShandar"){
+    name,
+    repos {
+      name_rep
+    }
+  }
+}
+
+query{
+    user(id: 1){
+    name,
+    repos {
+      name_rep
+    }
+  }
+}

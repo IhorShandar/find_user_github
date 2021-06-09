@@ -1,0 +1,24 @@
+//create images and containers
+docker-compose up database
+	//after 30s
+docker-compose up jdk
+
+//create containers when you create images from docker-compose
+docker run --name localhost -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=test_github -e MYSQL_PASSWORD=1111 -d mysql:8.0.23
+docker container logs localhost
+	//after 30s
+docker run -d -p 8089:8080 --name app --link localhost:mysql  find_user_github_jdk
+docker container logs app
+
+//push to Docker Hub
+docker tag find_user_github_jdk shandar1997/users_github:app_jdk
+docker push shandar1997/users_github:app_jdk
+docker tag mysql:8.0.23 shandar1997/users_github:mysqldb
+docker push shandar1997/users_github:mysqldb
+
+//create containers when you pull images from dockerhub
+docker run --name localhost -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=test_github -e MYSQL_PASSWORD=1111 -d shandar1997/users_github:mysqldb
+docker container logs localhost
+	//after 30s
+docker run -d -p 8089:8080 --name app --link localhost:mysql  shandar1997/users_github:app_jdk
+docker container logs app
